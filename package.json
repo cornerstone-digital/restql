@@ -1,6 +1,6 @@
 {
   "name": "@cornerstone-digital/restql",
-  "version": "1.0.0-alpha.10",
+  "version": "1.0.0-alpha.12",
   "main": "index.js",
   "repository": "git@github.com:cornerstone-digital/restql.git",
   "author": "Martin Egan <martingegan@gmail.com>",

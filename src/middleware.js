@@ -23,10 +23,8 @@ const middleware = (app, config) => {
           })
         }
 
-        console.log('Headers', req.headers)
-
         const AxiosClient = await axios.create({
-          baseURL: req.headers.baseurl ? req.headers.baseurl : undefined,
+          baseURL: req.headers.baseurl ? req.headers.baseurl : config.baseUrl,
           headers
         })
 
