@@ -35,8 +35,6 @@ const middleware = (app, config) => {
           timeout: 10000
         }
 
-        console.log('Options', options)
-
         const response = await AxiosClient(options)
         let query
         if (req.body.length) {
