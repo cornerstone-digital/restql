@@ -5,7 +5,7 @@ const { filter } = require('graphql-anywhere')
 const queryString = require('query-string')
 const cookieParser = require('cookie-parser')
 
-module.exports = (app, config) => {
+const middleware = (app, config) => {
   app.use(cookieParser())
   app.use(bodyParser.urlencoded({ extended: false }))
   app.use(bodyParser.json())
@@ -23,8 +23,10 @@ module.exports = (app, config) => {
           })
         }
 
+        console.log('Headers', req.headers)
+
         const AxiosClient = await axios.create({
-          baseURL: req.headers.baseurl,
+          baseURL: req.headers.baseurl ? req.headers.baseurl : undefined,
           headers
         })
 
@@ -34,6 +36,8 @@ module.exports = (app, config) => {
           params: queryString.parse(req.headers.params),
           timeout: 10000
         }
+
+        console.log('Options', options)
 
         const response = await AxiosClient(options)
         let query
@@ -58,7 +62,11 @@ module.exports = (app, config) => {
           res.status(response.status).send(result ? result : response.data)
         }
       } catch (e) {
+        console.error(e)
         res.status(500).send(new Error(e))
       }
   })
 }
+
+module.exports = middleware
+module.exports.default = middleware
